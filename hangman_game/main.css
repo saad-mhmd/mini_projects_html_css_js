@@ -148,6 +148,11 @@ body {
     cursor: pointer;
     margin-bottom: 10px;
 }
+.letters .letter-box.clicked {
+    background-color: #222;
+    opacity: .2;
+    pointer-events: none;
+} 
 .letters-guess {
     margin: 10px auto;
     background-color: #F8F8F8;

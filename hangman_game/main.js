@@ -61,8 +61,6 @@ let lettersGuessContainer = document.querySelector(".letters-guess");
 // Convert chosen word to array
 let lettersAndSpace = Array.from(randomValueValue);
 
-console.log(lettersAndSpace);
-
 // Create spans depending on letters
 lettersAndSpace.forEach(letter => {
     
@@ -78,5 +76,33 @@ lettersAndSpace.forEach(letter => {
 
     // Append spans to Letter Guess Container
     lettersGuessContainer.appendChild(emptySpan);   
+
+});
+
+// Handle clicking on letters
+document.addEventListener('click', (e) => {
+
+    if(e.target.className === 'letter-box') {
+        
+        e.target.classList.add(("clicked"));
+
+        // Get clicked letter
+        let theClickedLetter = e.target.innerHTML.toLowerCase();
+
+        // The chosen word
+        // console.log(lettersAndSpace);
+
+        lettersAndSpace.forEach((wordLetter, index) => {
+
+            //if the clicked letter is equal to one of the chosec word letters
+            if(wordLetter.toLowerCase() === theClickedLetter){
+
+                console.log(`Found At Index ${index}`);
+
+            }
+
+        });  
+
+    }
 
 });
