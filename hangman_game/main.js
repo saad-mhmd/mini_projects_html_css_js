@@ -79,6 +79,14 @@ lettersAndSpace.forEach(letter => {
 
 });
 
+// Select guess spans
+let guessSpans = document.querySelectorAll('.letters-guess span');
+
+// Set the choose status
+let theStatus = false;
+
+
+
 // Handle clicking on letters
 document.addEventListener('click', (e) => {
 
@@ -90,18 +98,33 @@ document.addEventListener('click', (e) => {
         let theClickedLetter = e.target.innerHTML.toLowerCase();
 
         // The chosen word
-        // console.log(lettersAndSpace);
+        let theChosenWord = Array.from(randomValueValue.toLowerCase());
 
-        lettersAndSpace.forEach((wordLetter, index) => {
+        theChosenWord.forEach((wordLetter, wordIndex) => {
 
             //if the clicked letter is equal to one of the chosec word letters
             if(wordLetter.toLowerCase() === theClickedLetter){
 
-                console.log(`Found At Index ${index}`);
+                // Set status to true
+                theStatus = true;
+
+                // Loop on all guess spans
+                guessSpans.forEach((span, spanIndex) => {
+
+                    if (wordIndex === spanIndex){
+
+                        span.innerHTML = theClickedLetter;
+
+                    }
+
+                });
 
             }
 
-        });  
+        });
+
+        // Outside the loop
+        console.log(theStatus);
 
     }
 
