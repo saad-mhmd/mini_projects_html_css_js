@@ -29,9 +29,9 @@ lettersArray.forEach(letter => {
 // Object of words + categories
 const words = {
     programming: ["JavaScript", "Python", "Java", "Ruby", "Swift", "Kotlin", "Haskell", "Erlang", "Scala", "Rust"],
-    movies: ["Inception", "Titanic", "Gladiator", "Avatar", "Frozen", "Casablanca", "Amadeus", "Rocky", "Braveheart", "Vertigo"],
-    people: ["Einstein", "Newton", "Aristotle", "Beethoven", "Galileo", "Cleopatra", "Shakespeare", "Gandhi", "Mandela", "Tesla"],
-    countries: ["France", "Germany", "Japan", "Canada", "Brazil", "Australia", "India", "China", "Egypt", "Italy"]
+    movies: ["Inception", "Titanic", "The Matrix", "Avatar", "Frozen", "Fight Club", "The Godfather", "Rocky", "Braveheart", "Vertigo"],
+    people: ["Albert Einstein", "Isaac Newton", "Elon Musk", "Beethoven", "Galileo", "Cleopatra", "Shakespeare", "Mahatma Gandhi", "Mandela", "Tesla"],
+    countries: ["France", "Germany", "Japan", "Canada", "Brazil", "Australia", "South Africa", "China", "Egypt", "Italy"]
 };
 
 // Get random property
@@ -54,3 +54,29 @@ let randomValueValue = randomPropValue[randomValueNumber];
 
 // Set category info
 document.querySelector('.game-info .category span').innerHTML = randomPropName + ' ' + randomValueValue;
+
+// Select letters guess element
+let lettersGuessContainer = document.querySelector(".letters-guess");
+
+// Convert chosen word to array
+let lettersAndSpace = Array.from(randomValueValue);
+
+console.log(lettersAndSpace);
+
+// Create spans depending on letters
+lettersAndSpace.forEach(letter => {
+    
+    // Create empty span
+    let emptySpan = document.createElement('span');
+
+    // If letter is space
+    if (letter === ' '){
+
+        // Add class to the span
+        emptySpan.className = 'has-space';
+    }
+
+    // Append spans to Letter Guess Container
+    lettersGuessContainer.appendChild(emptySpan);   
+
+});
