@@ -53,7 +53,7 @@ let randomValueNumber = Math.floor(Math.random() * randomPropValue.length);
 let randomValueValue = randomPropValue[randomValueNumber];
 
 // Set category info
-document.querySelector('.game-info .category span').innerHTML = randomPropName + ' ' + randomValueValue;
+document.querySelector('.game-info .category span').innerHTML = randomPropName;
 
 // Select letters guess element
 let lettersGuessContainer = document.querySelector(".letters-guess");
@@ -82,14 +82,18 @@ lettersAndSpace.forEach(letter => {
 // Select guess spans
 let guessSpans = document.querySelectorAll('.letters-guess span');
 
-// Set the choose status
-let theStatus = false;
+// Set wrong attempts
+let wrongAttempts = 0;
 
-
+// Select the draw element
+let theDraw = document.querySelector('.hangman-draw');
 
 // Handle clicking on letters
 document.addEventListener('click', (e) => {
 
+    // Set the choose status
+    let theStatus = false;
+    
     if(e.target.className === 'letter-box') {
         
         e.target.classList.add(("clicked"));
@@ -126,6 +130,51 @@ document.addEventListener('click', (e) => {
         // Outside the loop
         console.log(theStatus);
 
+        // If the letter is wrong
+        if (theStatus !== true) {
+
+            // Increase the wrong attempts counter
+            wrongAttempts++;
+
+            // Add class wrong on the draw element
+            theDraw.classList.add(`wrong-${wrongAttempts}`);
+
+            // Play fail sound
+            document.getElementById('fail').play();
+
+            if (wrongAttempts === 8) {
+
+                endGame();
+
+                lettersContainer.classList.add('finished');
+
+            }
+
+        } else {
+
+            // Play success sound
+            document.getElementById('success').play();
+        }
+
     }
 
 });
+
+// End game function
+function endGame() {
+
+    // Create popup div
+    let div = document.createElement('div');
+
+    // Create text
+    let divText = document.createTextNode(`Game Over, The Word Is: ${randomValueValue}`);
+
+    // Append text to div
+    div.appendChild(divText);
+
+    // Add class to div
+    div.className = 'popup';
+
+    // Append div to body
+    document.body.appendChild(div);
+}
