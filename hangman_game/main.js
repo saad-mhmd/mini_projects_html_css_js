@@ -26,6 +26,7 @@ lettersArray.forEach(letter => {
 
 });
 
+// TODO: instead of putting words like this, import them as JSON file
 // Object of words + categories
 const words = {
     programming: ["JavaScript", "Python", "Java", "Ruby", "Swift", "Kotlin", "Haskell", "Erlang", "Scala", "Rust"],
@@ -85,6 +86,9 @@ let guessSpans = document.querySelectorAll('.letters-guess span');
 // Set wrong attempts
 let wrongAttempts = 0;
 
+// Set correct attempts
+let correctAttempts = 0;
+
 // Select the draw element
 let theDraw = document.querySelector('.hangman-draw');
 
@@ -103,6 +107,8 @@ document.addEventListener('click', (e) => {
 
         // The chosen word
         let theChosenWord = Array.from(randomValueValue.toLowerCase());
+
+        
 
         theChosenWord.forEach((wordLetter, wordIndex) => {
 
@@ -127,8 +133,10 @@ document.addEventListener('click', (e) => {
 
         });
 
-        // Outside the loop
-        console.log(theStatus);
+        let theChosenWordWithoutSpaces = removeSpaces(theChosenWord);
+
+
+        let theChosenWordWithoutSpacesUnique = removeDuplicates(theChosenWordWithoutSpaces);
 
         // If the letter is wrong
         if (theStatus !== true) {
@@ -144,7 +152,7 @@ document.addEventListener('click', (e) => {
 
             if (wrongAttempts === 8) {
 
-                endGame();
+                loseGame();
 
                 lettersContainer.classList.add('finished');
 
@@ -152,8 +160,19 @@ document.addEventListener('click', (e) => {
 
         } else {
 
+            // Increase the wrong attempts counter
+            correctAttempts++;
+
             // Play success sound
             document.getElementById('success').play();
+
+            if (correctAttempts === (theChosenWordWithoutSpacesUnique.length)) {
+
+                winGame();
+
+                lettersContainer.classList.add('finished');
+
+            }
         }
 
     }
@@ -161,20 +180,46 @@ document.addEventListener('click', (e) => {
 });
 
 // End game function
-function endGame() {
+function loseGame() {
 
-    // Create popup div
+    // Create lose popup div
     let div = document.createElement('div');
 
     // Create text
-    let divText = document.createTextNode(`Game Over, The Word Is: ${randomValueValue}`);
+    let divText = document.createTextNode(`Game Over, the word is: ${randomValueValue}`);
 
     // Append text to div
     div.appendChild(divText);
 
     // Add class to div
-    div.className = 'popup';
+    div.className = 'popupLose';
 
     // Append div to body
     document.body.appendChild(div);
 }
+
+function winGame() {
+
+    // Create win popup div
+    let div = document.createElement('div');
+
+    // Create text
+    let divText = document.createTextNode('You Won!');
+
+    // Append text to div
+    div.appendChild(divText);
+
+    // Add class to div
+    div.className = 'popupWin';
+
+    // Append div to body
+    document.body.appendChild(div);
+}
+
+function removeDuplicates (arr) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+}
+
+function removeSpaces(arr) {
+    return arr.filter(element => element !== " ");
+  }
