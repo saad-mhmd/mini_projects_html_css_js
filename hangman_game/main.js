@@ -168,7 +168,16 @@ document.addEventListener('click', (e) => {
 
             if (correctAttempts === (theChosenWordWithoutSpacesUnique.length)) {
 
-                winGame();
+                if (wrongAttempts < 3) {
+                    console.log('excellent');
+                    winGame('excellent');
+                } else if ((wrongAttempts >= 3) && (wrongAttempts < 6)) {
+                    console.log();
+                    winGame('good');
+                } else {
+                    console.log();
+                    winGame('not bad');
+                }
 
                 lettersContainer.classList.add('finished');
 
@@ -198,21 +207,25 @@ function loseGame() {
     document.body.appendChild(div);
 }
 
-function winGame() {
+function winGame(score) {
 
-    // Create win popup div
     let div = document.createElement('div');
+    let winMessage = '';
 
-    // Create text
-    let divText = document.createTextNode('You Won!');
+    if (score === 'excellent') {
+        winMessage = 'Excellent, You Won!';
+    } else if (score === 'good') {
+        winMessage = 'Good, You Won!';
+    } else {
+        winMessage = 'Not Bad, You Won!';
+    }
 
-    // Append text to div
+    let divText = document.createTextNode(winMessage);
+
     div.appendChild(divText);
 
-    // Add class to div
     div.className = 'popupWin';
 
-    // Append div to body
     document.body.appendChild(div);
 }
 
