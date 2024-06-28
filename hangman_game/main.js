@@ -235,4 +235,15 @@ function removeDuplicates (arr) {
 
 function removeSpaces(arr) {
     return arr.filter(element => element !== " ");
-  }
+}
+
+
+// TODO: Handle what happens when the game ends
+// TODO: Audio ON/OFF button
+// TODO: Add a timer
+// TODO: Add a score
+// TODO: Add a hint button
+// TODO: Add a restart button
+// TODO: Add a difficulty level
+// TODO: Add a settings page
+// TODO: Implement a time attack mode
